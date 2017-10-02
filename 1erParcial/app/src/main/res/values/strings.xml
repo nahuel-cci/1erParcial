@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">1erParcial</string>
+    <string name="userDefaultText">Usuario</string>
+    <string name="passDefaultText">Constraseña</string>
+</resources>
