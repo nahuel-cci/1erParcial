@@ -8,9 +8,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +25,12 @@ import android.widget.Toast;
 import com.amitshekhar.DebugDB;
 
 public class MenuActivity extends AppCompatActivity {
+    private TextView lblMensaje;
+    private ListView lvItems;
+    UsuariosCursorAdapter usuariosAdapter;
+    private SQLiteDatabase db;
+    private Cursor selectedCursor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +40,12 @@ public class MenuActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         String previousActivity = intent.getStringExtra("previousActivity");
-        String insertionResult = intent.getStringExtra(AddUserActivity.insertionIntoDb);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
 
-//        TextView textView = new TextView(this);
-//        textView.setTextSize(40);
-//        textView.setText(message);
-//
-//        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_menu);
-//        layout.addView(textView);
+        setSupportActionBar(toolbar);
 
         if (previousActivity.matches("AddUserActivity")) {
+            String insertionResult = intent.getStringExtra(AddUserActivity.insertionIntoDb);
             Toast toast = Toast.makeText(   getApplicationContext(),
                                             insertionResult,
                                             Toast.LENGTH_SHORT);
@@ -55,27 +63,71 @@ public class MenuActivity extends AppCompatActivity {
         });
 
 
-        //Abrimos la base de datos 'DBUsuarios' en modo escritura
-        UsuariosSQLiteHelper usdbh =
-                new UsuariosSQLiteHelper(this, "DBUsuarios", null, 1);
 
+        /***** Bases de datos ****/
+        //Abrimos la base de datos 'DBUsuarios' en modo escritura
+        UsuariosSQLiteHelper usdbh = new UsuariosSQLiteHelper(this, "DBUsuarios", null, 1);
         DebugDB.getAddressLog();
 
-        SQLiteDatabase db2 = usdbh.getWritableDatabase();
-        Cursor usuariosCursor = db2.rawQuery("SELECT * FROM Usuarios", null);
-
+        db = usdbh.getWritableDatabase();
+        Cursor usuariosCursor = db.rawQuery("SELECT * FROM Usuarios", null);
 
         // Find ListView to populate
-        ListView lvItems = (ListView) findViewById(R.id.lvItems);
-//        // Setup cursor adapter using cursor from last step
-        UsuariosCursorAdapter usuariosAdapter = new UsuariosCursorAdapter(this, usuariosCursor);
-//        // Attach cursor adapter to the ListView
+        lvItems = (ListView) findViewById(R.id.lvItems);
+
+        // Setup cursor adapter using cursor from last step
+        usuariosAdapter = new UsuariosCursorAdapter(this, usuariosCursor);
+
+        // Attach cursor adapter to the ListView
         lvItems.setAdapter(usuariosAdapter);
-//      db2.close();
+//      db.close();
+
+        //Asociamos los menús contextuales a los controles
+        registerForContextMenu(lvItems);
+        /************************/
 
 
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent newIntent = new Intent(MenuActivity.this, TabsActivity.class);
+                startActivity(newIntent);
+            }
+        });
 
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)   {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+        selectedCursor = (Cursor) lvItems.getItemAtPosition(info.position);
+        String title = selectedCursor.getString(selectedCursor.getColumnIndex("nombre"));
+        menu.setHeaderTitle(title);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.CtxLblOpc1:
+
+                Intent newIntent = new Intent(MenuActivity.this, AddUserActivity.class);
+                startActivity(newIntent);
+                return true;
+            case R.id.CtxLblOpc2:
+                db.execSQL("DELETE FROM Usuarios WHERE _id="+selectedCursor.getString(selectedCursor.getColumnIndex("_id")));
+                
+                usuariosAdapter.notifyDataSetInvalidated();
+//                db.execSQL("DELETE FROM Usuarios WHERE _id=1");
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
 }
 
 
