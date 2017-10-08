@@ -27,9 +27,10 @@ import com.amitshekhar.DebugDB;
 public class MenuActivity extends AppCompatActivity {
     private TextView lblMensaje;
     private ListView lvItems;
-    UsuariosCursorAdapter usuariosAdapter;
+    private UsuariosCursorAdapter usuariosAdapter;
     private SQLiteDatabase db;
-    private Cursor selectedCursor;
+    private Cursor contextMenuCursor;
+
 
 
     @Override
@@ -101,8 +102,8 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-        selectedCursor = (Cursor) lvItems.getItemAtPosition(info.position);
-        String title = selectedCursor.getString(selectedCursor.getColumnIndex("nombre"));
+        contextMenuCursor = (Cursor) lvItems.getItemAtPosition(info.position);
+        String title = contextMenuCursor.getString(contextMenuCursor.getColumnIndex("nombre"));
         menu.setHeaderTitle(title);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.context_menu, menu);
@@ -110,18 +111,17 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.CtxLblOpc1:
-
                 Intent newIntent = new Intent(MenuActivity.this, AddUserActivity.class);
+                newIntent.putExtra("_id", contextMenuCursor.getInt(contextMenuCursor.getColumnIndex("_id")));
                 startActivity(newIntent);
                 return true;
             case R.id.CtxLblOpc2:
-                db.execSQL("DELETE FROM Usuarios WHERE _id="+selectedCursor.getString(selectedCursor.getColumnIndex("_id")));
-                
-                usuariosAdapter.notifyDataSetInvalidated();
-//                db.execSQL("DELETE FROM Usuarios WHERE _id=1");
+                db.execSQL("DELETE FROM Usuarios WHERE _id="+contextMenuCursor.getString(contextMenuCursor.getColumnIndex("_id")));
+                Cursor usuariosCursorAux = db.rawQuery("SELECT * FROM Usuarios", null);
+                usuariosAdapter.changeCursor(usuariosCursorAux);
+//                usuariosAdapter.notifyDataSetChanged(); // No hace falta
                 return true;
             default:
                 return super.onContextItemSelected(item);

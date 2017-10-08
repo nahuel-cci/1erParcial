@@ -13,7 +13,8 @@ public class UsuariosSQLiteHelper extends SQLiteOpenHelper {
     String sqlCreate =  "CREATE TABLE Usuarios " +
                             "(_id       INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                             " nombre    TEXT," +
-                            " telefono  TEXT)";
+                            " telefono  TEXT" +
+                            " sexo      TEXT)";
 
 
 
@@ -27,9 +28,9 @@ public class UsuariosSQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //Se ejecuta la sentencia SQL de creación de la tabla
         db.execSQL(sqlCreate);
-        db.execSQL("INSERT INTO Usuarios (nombre, telefono) VALUES ('Diego', '40005000')");
-        db.execSQL("INSERT INTO Usuarios (nombre, telefono) VALUES ('Laura', '45675000')");
-        db.execSQL("INSERT INTO Usuarios (nombre, telefono) VALUES ('Pablo', '40001234')");
+        db.execSQL("INSERT INTO Usuarios (nombre, telefono, sexo) VALUES ('Diego', '40005000', 'Masculino')");
+        db.execSQL("INSERT INTO Usuarios (nombre, telefono, sexo) VALUES ('Laura', '45675000', 'Femenino')");
+        db.execSQL("INSERT INTO Usuarios (nombre, telefono, sexo) VALUES ('Pablo', '40001234', 'Otro')");
     }
 
     @Override

@@ -8,6 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.widget.TextView;
+
+//import org.greenrobot.eventbus.EventBus;
+//import org.greenrobot.eventbus.Subscribe;
+//import org.greenrobot.eventbus.ThreadMode;
 
 
 /**
@@ -15,35 +20,44 @@ import android.support.v4.app.Fragment;
  */
 
 
-public class PersonaFragment extends Fragment
-{
+public class PersonaFragment extends Fragment{
+    public static final String ARG_PAGE = "ARG_PAGE";
+    private int mPage;
+    private TextView textView;
 
-    public PersonaFragment()
-    {}
+
+    public static PersonaFragment newInstance (int page){
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, page);
+        PersonaFragment fragment = new PersonaFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState)    {
         super.onCreate(savedInstanceState);
+        mPage = getArguments().getInt(ARG_PAGE);
         //setContentView(R.layout.activity_clientes);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)    {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_tabs, container, false);
+        View view = inflater.inflate(R.layout.persona_fragment, container, false);
+        return view;
     }
 
 
     // This event is triggered soon after onCreateView().
     // onViewCreated() is only called if the view returned from onCreateView() is non-null.
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
-    /*@Override
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        ListView lv = (ListView) view.findViewById(R.id.lvSome);
-        lv.setAdapter(adapter);
+        textView = (TextView) view.findViewById(R.id.textView1);
+        textView.setText("Fragment #"+mPage);
     }
-*/
 
 
     @Override
@@ -95,4 +109,23 @@ public class PersonaFragment extends Fragment
         }*/
     return true;
     }
+
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    @Subscribe()
+//    public void onMessage(Message event){
+//        textView.setText(event.getMessage());
+//    }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        EventBus.getDefault().register(this);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        EventBus.getDefault().unregister(this);
+//        super.onStop();
+//    }
 }
