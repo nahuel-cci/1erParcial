@@ -13,7 +13,7 @@ public class UsuariosSQLiteHelper extends SQLiteOpenHelper {
     String sqlCreate =  "CREATE TABLE Usuarios " +
                             "(_id       INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                             " nombre    TEXT," +
-                            " telefono  TEXT" +
+                            " telefono  TEXT," +
                             " sexo      TEXT)";
 
 
