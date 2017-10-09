@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 /**
@@ -108,21 +111,22 @@ public class PersonaFragment extends Fragment{
     }
 
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    @Subscribe()
-//    public void onMessage(Message event){
-//        textView.setText(event.getMessage());
-//    }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        EventBus.getDefault().register(this);
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        EventBus.getDefault().unregister(this);
-//        super.onStop();
-//    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event){
+        textView.setText(event.message);
+    }
 }
