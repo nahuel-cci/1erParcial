@@ -51,7 +51,7 @@
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gdHorizontal5"
+        android:id="@+id/gdHorizontal10"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.60" />
 
@@ -76,7 +76,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintLeft_toLeftOf="@+id/gdVerticalLeft"
         app:layout_constraintRight_toLeftOf="@+id/gdVerticalRight"
-        app:layout_constraintTop_toTopOf="@+id/gdHorizontal5" />
+        app:layout_constraintTop_toTopOf="@+id/gdHorizontal10" />
 
     <EditText
         android:id="@+id/userName"

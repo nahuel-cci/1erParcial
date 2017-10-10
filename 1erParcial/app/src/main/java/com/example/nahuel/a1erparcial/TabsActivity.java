@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -18,6 +19,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class TabsActivity extends AppCompatActivity {
     private SQLiteDatabase db;
+    private String nombre;
+    private String telefono;
+    private String sexo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +37,15 @@ public class TabsActivity extends AppCompatActivity {
         // Me aseguro que haya algo en el cursor
         if (rowCursor.moveToFirst()) {
             do {
-                String nombre= rowCursor.getString(0);
-                String telefono = rowCursor.getString(1);
-                String sexo = rowCursor.getString(2);
+                nombre= rowCursor.getString(0);
+                telefono = rowCursor.getString(1);
+                sexo = rowCursor.getString(2);
             } while(rowCursor.moveToNext());
         }
-
-
+//        EventBus.getDefault().post(new MessageEvent("Hello"));
+        EventBus.getDefault().postSticky(new MessageEvent(nombre));
+        EventBus.getDefault().postSticky(new MessageEvent2(telefono));
+        EventBus.getDefault().postSticky(new MessageEvent3(sexo));
 
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
@@ -50,19 +56,6 @@ public class TabsActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-//        EventBus.getDefault().post(new MessageEvent("Hello"));
-        EventBus.getDefault().postSticky(new MessageEvent("Hello"));
-    }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        EventBus.getDefault().register(this);
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        EventBus.getDefault().unregister(this);
-//        super.onStop();
-//    }
+    }
 }

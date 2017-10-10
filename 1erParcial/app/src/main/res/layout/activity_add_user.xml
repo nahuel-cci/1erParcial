@@ -11,14 +11,18 @@
         android:layout_height="wrap_content"
         android:id="@+id/gdVerticalLeft"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.0" />
+        app:layout_constraintGuide_percent="0.0"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gdVerticalRight"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.8"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="307dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -32,35 +36,61 @@
         android:layout_height="wrap_content"
         android:id="@+id/gdHorizontal2"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gdHorizontal3"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.42" />
+        app:layout_constraintGuide_percent="0.35"
+        tools:layout_editor_absoluteY="238dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gdHorizontal4"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.52" />
+        app:layout_constraintGuide_percent="0.45"
+        tools:layout_editor_absoluteY="295dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/gdHorizontal5"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
-
-    <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gdHorizontal6"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.82" />
+        app:layout_constraintGuide_percent="0.55"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="363dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gdHorizontal6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="420dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gdHorizontal7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="505dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/gdHorizontal8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1.0"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="567dp" />
 
     <Button
         android:id="@+id/butAccept"
@@ -72,11 +102,13 @@
         android:layout_marginTop="8dp"
         android:onClick="actionLogIn"
         android:text="Aceptar"
-        app:layout_constraintBottom_toTopOf="@+id/gdHorizontal6"
+        app:layout_constraintBottom_toTopOf="@+id/gdHorizontal7"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintLeft_toLeftOf="@+id/gdVerticalLeft"
         app:layout_constraintRight_toLeftOf="@+id/gdVerticalRight"
-        app:layout_constraintTop_toTopOf="@+id/gdHorizontal5" />
+        app:layout_constraintTop_toTopOf="@+id/gdHorizontal8"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/etAddName"
@@ -90,11 +122,11 @@
         android:inputType="textPersonName"
         android:text=""
         app:layout_constraintBottom_toTopOf="@+id/gdHorizontal2"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="@+id/gdVerticalLeft"
         app:layout_constraintRight_toLeftOf="@+id/gdVerticalRight"
         app:layout_constraintTop_toTopOf="@+id/gdHorizontal1"
-        app:layout_constraintVertical_bias="0.5" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/etAddPhone"
@@ -112,7 +144,9 @@
         app:layout_constraintBottom_toTopOf="@+id/gdHorizontal4"
         app:layout_constraintTop_toTopOf="@+id/gdHorizontal3"
         android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/tvName"
@@ -123,27 +157,62 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="Nombre"
-        app:layout_constraintBottom_toTopOf="@+id/gdHorizontal1"
+        app:layout_constraintBottom_toTopOf="@+id/etAddName"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/gdVerticalLeft"
         app:layout_constraintRight_toLeftOf="@+id/gdVerticalRight"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
 
     <TextView
-        android:id="@+id/tvPhone"
+        android:id="@+id/tvTelefono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="Teléfono"
+        android:text="Telefono"
         app:layout_constraintBottom_toTopOf="@+id/etAddPhone"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/gdVerticalLeft"
         app:layout_constraintRight_toLeftOf="@+id/gdVerticalRight"
-        app:layout_constraintTop_toTopOf="@+id/gdHorizontal2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+
+    <TextView
+        android:id="@+id/tvSexo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sexo"
+        app:layout_constraintBottom_toTopOf="@+id/gdHorizontal5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/gdVerticalLeft"
+        app:layout_constraintRight_toLeftOf="@+id/gdVerticalRight"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <Spinner
+        android:id="@+id/spSexo"
+        android:layout_width="272dp"
+        android:layout_height="27dp"
+        app:layout_constraintRight_toLeftOf="@+id/gdVerticalRight"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/gdVerticalLeft"
+        app:layout_constraintHorizontal_bias="0.421"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/gdHorizontal6"
+        app:layout_constraintTop_toTopOf="@+id/gdHorizontal5"
+        android:layout_marginTop="8dp"
+        app:layout_constraintVertical_bias="0.428" />
 
 </android.support.constraint.ConstraintLayout>

@@ -2,4 +2,11 @@
     <string name="app_name">1erParcial</string>
     <string name="userDefaultText">Usuario</string>
     <string name="passDefaultText">Constraseña</string>
+
+    <string-array name="sexo_array">
+        <item>Femenino</item>
+        <item>Masculino</item>
+        <item>Otro</item>
+    </string-array>
+
 </resources>

@@ -2,6 +2,7 @@ package com.example.nahuel.a1erparcial;
 
 /*import android.app.Fragment;*/
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +24,8 @@ import org.greenrobot.eventbus.ThreadMode;
 public class PersonaFragment extends Fragment{
     public static final String ARG_PAGE = "ARG_PAGE";
     private int mPage;
-    private TextView textView;
+    private TextView tvNombre;
+    private TextView tvTelefono;
 
 
     public static PersonaFragment newInstance (int page){
@@ -55,8 +57,10 @@ public class PersonaFragment extends Fragment{
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        textView = (TextView) view.findViewById(R.id.textView1);
-        textView.setText("Fragment #"+mPage);
+        tvNombre = (TextView) view.findViewById(R.id.tvNombre);
+        tvTelefono = (TextView) view.findViewById(R.id.tvTelefono);
+        tvNombre.setText("Nombre #"+mPage);
+        tvTelefono.setText("Telefono #"+mPage);
     }
 
 
@@ -86,29 +90,29 @@ public class PersonaFragment extends Fragment{
 
     }
 
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        ((MainActivity)getActivity()).getMenuInflater().inflate(R.menu.context_menu, menu);
-        return true;
-    }
+//    public boolean onCreateOptionsMenu(Menu menu)
+//    {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        ((MainActivity)getActivity()).getMenuInflater().inflate(R.menu.context_menu, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-/*        switch (item.getItemId())
-        {
-//            case R.id.action_nuevo:
-//
-//                Intent NuevoProductoIntent = new Intent( ((MainActivity)getActivity()),IngresoClienteActivity.class);
-//                startAct:
-//
-//
-//                default:
-                  return super.onOptionsItemSelected(item);
-        }*/
-    return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item)
+//    {
+///*        switch (item.getItemId())
+//        {
+////            case R.id.action_nuevo:
+////
+////                Intent NuevoProductoIntent = new Intent( ((MainActivity)getActivity()),IngresoClienteActivity.class);
+////                startAct:
+////
+////
+////                default:
+//                  return super.onOptionsItemSelected(item);
+//        }*/
+//    return true;
+//    }
 
 
 
@@ -124,8 +128,15 @@ public class PersonaFragment extends Fragment{
         super.onStop();
     }
 
+    // nombre
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event){
-        textView.setText(event.message);
+        tvNombre.setText(event.message);
+    }
+
+    // telefono
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onMessageEvent2(MessageEvent2 event){
+        tvTelefono.setText(event.message);
     }
 }

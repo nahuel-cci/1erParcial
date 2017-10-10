@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -91,6 +92,7 @@ public class MenuActivity extends AppCompatActivity {
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent newIntent = new Intent(MenuActivity.this, TabsActivity.class);
+                newIntent.putExtra("_id", (int)id);
                 startActivity(newIntent);
             }
         });
@@ -114,6 +116,7 @@ public class MenuActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.CtxLblOpc1:
                 Intent newIntent = new Intent(MenuActivity.this, AddUserActivity.class);
+                newIntent.putExtra("editUser", true);
                 newIntent.putExtra("_id", contextMenuCursor.getInt(contextMenuCursor.getColumnIndex("_id")));
                 startActivity(newIntent);
                 return true;
