@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/miCompose"
+        android:icon="@drawable/ic_settings_black_24dp"
+        app:showAsAction="ifRoom"
+        android:title="Compose">
+    </item>
+    <item
+        android:id="@+id/miProfile"
+        android:icon="@drawable/ic_add_circle_black_24dp"
+        app:showAsAction="ifRoom|withText"
+        android:title="Profile">
+    </item>
+</menu>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<menu xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:compat="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:app="http://schemas.android.com/tools">-->
+    <!--<item android:title="Refresh"-->
+        <!--android:icon="@drawable/ic_settings_black_24dp"-->
+        <!--android:id="@+id/action_refresh"-->
+        <!--app:showAsAction="always"-->
+    <!--</item/>-->
+<!--</menu>-->
+

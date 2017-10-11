@@ -2,13 +2,17 @@ package com.example.nahuel.a1erparcial;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -31,7 +35,8 @@ public class MenuActivity extends AppCompatActivity {
     private UsuariosCursorAdapter usuariosAdapter;
     private SQLiteDatabase db;
     private Cursor contextMenuCursor;
-
+    private SharedPreferences mSettings;
+    private Toolbar toolbar;
 
 
     @Override
@@ -42,9 +47,13 @@ public class MenuActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         String previousActivity = intent.getStringExtra("previousActivity");
-        Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
-
+        toolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
+
+//      SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(this);
+        mSettings = this.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+
+
 
         if (previousActivity.matches("AddUserActivity")) {
             String insertionResult = intent.getStringExtra(AddUserActivity.insertionIntoDb);
@@ -99,6 +108,33 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
+    // La posta de los toolbars
+    // https://guides.codepath.com/android/Using-the-App-Toolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.miCompose:
+                Intent intent = new Intent(this, SharedPrefActivity.class);
+                intent.putExtra("previousActivity", "MenuActivity");
+                startActivity(intent);
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)   {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -130,6 +166,23 @@ public class MenuActivity extends AppCompatActivity {
                 return super.onContextItemSelected(item);
         }
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mSettings.getBoolean("cambiarColor", false)){
+            toolbar.setTitleTextColor(Color.RED);
+        }
+        else{
+            toolbar.setTitleTextColor(Color.BLACK);
+        }
+    }
+//
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//
+//    }
 
 }
 
