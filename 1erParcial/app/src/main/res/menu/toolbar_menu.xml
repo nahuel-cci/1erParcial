@@ -6,12 +6,6 @@
         app:showAsAction="ifRoom"
         android:title="Compose">
     </item>
-    <item
-        android:id="@+id/miProfile"
-        android:icon="@drawable/ic_add_circle_black_24dp"
-        app:showAsAction="ifRoom|withText"
-        android:title="Profile">
-    </item>
 </menu>
 
 

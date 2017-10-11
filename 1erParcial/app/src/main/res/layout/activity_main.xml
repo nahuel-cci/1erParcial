@@ -39,28 +39,67 @@
         android:layout_height="wrap_content"
         android:id="@+id/gdHorizontal3"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.30" />
+        app:layout_constraintGuide_percent="0.40" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gdHorizontal4"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.40" />
+        app:layout_constraintGuide_percent="0.50" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gdHorizontal10"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.60" />
+        app:layout_constraintGuide_percent="0.70" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gdHorizontal6"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.72" />
+        app:layout_constraintGuide_percent="0.80" />
+
+
+    <TextView
+        android:id="@+id/tvUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Usuario"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/gdHorizontal1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/gdVerticalLeft"
+        app:layout_constraintRight_toLeftOf="@+id/gdVerticalRight"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/tvPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Contraseña"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/gdHorizontal3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/gdVerticalLeft"
+        app:layout_constraintRight_toLeftOf="@+id/gdVerticalRight"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <Button
         android:id="@+id/butLogIn"
@@ -85,6 +124,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/userDefaultText"
+        android:textColorHighlight="@color/gray"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/gdVerticalLeft"
         app:layout_constraintRight_toLeftOf="@+id/gdVerticalRight"
