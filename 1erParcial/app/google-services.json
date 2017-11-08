@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "556495283892",
+    "firebase_url": "https://erparcial.firebaseio.com",
+    "project_id": "erparcial",
+    "storage_bucket": "erparcial.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556495283892:android:b316967ea1940fdf",
+        "android_client_info": {
+          "package_name": "com.example.nahuel.a1erparcial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556495283892-3ghbb2u4p4m6pcv3re3mc8llkur11f8f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nahuel.a1erparcial",
+            "certificate_hash": "49236bfcd4f0c8ea0e633b45cca2542a103e22c8"
+          }
+        },
+        {
+          "client_id": "556495283892-ajhjkpoe7831cpk7b9fpc8ad7ucib1pm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4KiE_aD_bGdNxZARAnPaz9LjoPA5b46M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556495283892-ajhjkpoe7831cpk7b9fpc8ad7ucib1pm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

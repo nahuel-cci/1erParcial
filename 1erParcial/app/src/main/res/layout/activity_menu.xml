@@ -11,8 +11,10 @@
     <include
         layout="@layout/toolbar"
         android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp" />
 
     <ListView
         android:id="@+id/lvItems"
@@ -26,7 +28,9 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAddUser"
@@ -44,5 +48,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintVertical_bias="0.905"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.881" />
+        app:layout_constraintHorizontal_bias="0.881"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 </android.support.constraint.ConstraintLayout>
