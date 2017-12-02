@@ -67,7 +67,7 @@
 {
 	"users":{
 		 auth.uid: { #usuarioA
-			"name": "nahuel"
+			"name": "nahuel",
 			"devices":{
 				"dev1": True
 				"dev2": False
@@ -113,14 +113,22 @@
 			"tstart": 14:00:00,
 			"duration": 10 #in minutes						
 		}
+		"task2": {
+			"name": "Titilar LED",
+			"frequency": 50,
+			"state": "onprogess",
+			"daystart": 05/12/2017,
+			"tstart": 14:00:00,
+			"duration": 10 #in minutes						
+		}
 		
 	}
+}
 			
-		dispositivos (ie, raspy)
-		tareas
+#########
+# rapsy #
+#########
 
-	dispositivos:
-		tareas
 
 
 
@@ -146,7 +154,7 @@ auth = firebase.auth()
 user = auth.sign_in_with_email_and_password("nahuel.cci@gmail.com", "firebase")
 
 
-#Create node
+# Obtener referencia
 db = firebase.database()
 
 switch_state = True
