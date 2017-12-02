@@ -29,7 +29,7 @@
 # La raspberry sólo conoce la tarea que está ejecutando (opción a) en "Situaciones"). No conoce la lista.
 
 # Situaciones
-# Se tiene tres tareas de duración X, Y y Z al momento de comenzar [Mismo usuario].
+# Se tienen tres tareas de duración X, Y y Z al momento de comenzar [Mismo usuario].
 #
 # a)La raspberry solo conoce la tarea que se está ejecutando 
 #		Inicia la X
@@ -51,23 +51,80 @@
 # Se opta por la opción A por ser más sencilla y aunque un recurso puede quedar sin utilizarse cuando no hay conexión, se evita la ejecución de tareas que pueden
 # llegar a ser canceladas posteriormente por el usuario.
 
+# Tarea con cierto tiempo de ejecución
+# La app de android setea el:
+#	a) Tiempo de inicio 
+#	b) Duración
+# Se lo manda a la BD y a su vez corre el contador de forma local
+# La raspy lo recibe y comienza la ejecución
+# Cuando finaliza el timer de Android se muestra un cartel:
+#	'Esperando confirmación'
+# Se espera la interrupción asincrónica de la raspy-->server--> en Android.
+
+
+# Estructura de la BD
+# Cosas involucradas: usuarios, dispositivos, tareas
+{
+	"users":{
+		 auth.uid: { #usuarioA
+			"name": "nahuel"
+			"devices":{
+				"dev1": True
+				"dev2": False
+			},
+			"tasks":{
+				"task1":{"state":"completed"}
+				"task2":{"state":"onprogress"}
+			}
+		}
+		auth.uid: { #usuarioB
+			"name": "kuku"
+			"devices":{
+				"dev1": True
+				"dev2": False
+			},
+			"tasks":{
+				"task1":{"state":"completed"}
+				"task2":{"state":"onprogress"}
+			}
+		}
+		...
+	}
+		
+	"devices":{
+		"raspinano": {
+			"users": {
+				auth.uid: True, #usuarioA
+				auth.uid: False #usuarioB
+			},
+			"tasks": {
+				task1: True, #hace falta poner las tareas que no están asociadas? Lo más probable es que no
+				task3: True
+			}			
+		}
+		...		
+	}
+	
+	"tasks": {
+		"task1": {
+			"name": "Prender LED",
+			"state": "onprogess",
+			"daystart": 05/12/2017,
+			"tstart": 14:00:00,
+			"duration": 10 #in minutes						
+		}
+		
+	}
+			
+		dispositivos (ie, raspy)
+		tareas
+
+	dispositivos:
+		tareas
 
 
 
 
-
-
-# Progress bar
-# Una tarea puede demorar cierto tiempo en ejecutarse (ej, 2minutos).
-# Si la duración de la tarea es determinística, se setea un contador con tiempo de inicio y duración.
-# El tiempo de inicio es requerido al server. Se comprueba que la hora local coincida con la remota, en caso contrario 
-# se crea una variable con el tiempo local y se calcula el tiempo de finalización a partir de dicho momento.
-
-# Inicio de la tarea:
-# 	Se debe iniciar la tarea tanto local
-#	
-# De manera local la raspi setea un contador que a su vencimiento avisa a la BD que la tarea fue completada.
-# 
 
 
 import time
@@ -80,9 +137,8 @@ config = {
   "projectId": "share-292a0",
   "storageBucket": "share-292a0.appspot.com",
   #"serviceAccount": "C:\\Users\\nahuel\\Desktop\\Share-aa30013fd9f9.json" #Windows
-  "serviceAccount": "Share-aa30013fd9f9.json" #Linux
+  "serviceAccount": "Share-a0de70ff3bfd.json" #Linux	  
 }
-
 firebase = pyrebase.initialize_app(config)
 
 auth = firebase.auth()
