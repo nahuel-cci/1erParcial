@@ -23,13 +23,11 @@ user = auth.sign_in_with_email_and_password("nahuel.cci@gmail.com", "firebase")
 
 # get db reference
 db = firebase.database()
+
+# borro la base de datos
+db.remove()
+
 users_ref = db.child("users")
-
-time_hhmmss = time.strftime('%H:%M:%S')
-time_hhmmss2 = time.strftime('%H:%M+5:%S')
-date_mmddyyyy = time.strftime('%d/%m/%Y')
-
-
 postData={
 	"6bpDDxJ2sTMiQddDxJEyluOAtLx2": {
 		"name": "nahuel",
@@ -45,8 +43,7 @@ results = users_ref.set(postData, user['idToken'])
 
 devices_ref = db.child("devices")
 postData = {
-	"devices":{
-		"raspinano": {
+	"raspinano": {
 			"users": {
 				"6bpDDxJ2sTMiQddDxJEyluOAtLx2": True				
 			},
@@ -55,7 +52,6 @@ postData = {
 				"task2": True
 			}			
 		}		
-	}
 }
 results = devices_ref.set(postData, user['idToken'])
 
@@ -66,25 +62,37 @@ date_time_task2 = '03.12.2017 11:05:02'
 epoch_task1 = int(time.mktime(time.strptime(date_time_task1, pattern)))
 epoch_task2 = int(time.mktime(time.strptime(date_time_task2, pattern)))
 
-tasks_ref = db.child("tasks")
+scheduled_tasks_ref = db.child("scheduled_tasks")
 postData={
 	"task1": {
-		"name": "Prender LED",
-		"state": "onprogess",
+		"name": "blink",		
 		"creationtime": 1512306000,
 		"executiontime": epoch_task1,
-		"duration": 10 #in minutes						
+		"duration": 5 #in seconds						
 	},
 	"task2": {
-		"name": "Titilar LED",
+		"name": "pwm",
 		"frequency": 50,
-		"state": "onprogess",
 		"creationtime": 1512306300,
 		"executiontime": epoch_task2,
-		"duration": 10 #in minutes						
+		"duration": 5 #in seconds						
 	}		
 }
-results = tasks_ref.set(postData, user['idToken'])
+results = scheduled_tasks_ref.set(postData, user['idToken'])
 
+
+tasks_ref = db.child("tasks")
+postData = {
+	"task1":{
+		"state": "scheduled"
+	},
+	"task2":{
+		"state": "scheduled"
+	},
+	"task3":{
+		"state": "completed"
+	}
+}
+results = tasks_ref.set(postData, user['idToken'])
 
 
