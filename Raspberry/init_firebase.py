@@ -60,21 +60,27 @@ postData = {
 results = devices_ref.set(postData, user['idToken'])
 
 
+pattern = '%d.%m.%Y %H:%M:%S'
+date_time_task1 = '03.12.2017 11:00:02'
+date_time_task2 = '03.12.2017 11:05:02'
+epoch_task1 = int(time.mktime(time.strptime(date_time_task1, pattern)))
+epoch_task2 = int(time.mktime(time.strptime(date_time_task2, pattern)))
+
 tasks_ref = db.child("tasks")
 postData={
 	"task1": {
 		"name": "Prender LED",
 		"state": "onprogess",
-		"daystart": date_mmddyyyy,
-		"tstart": time_hhmmss,
+		"creationtime": 1512306000,
+		"executiontime": epoch_task1,
 		"duration": 10 #in minutes						
 	},
 	"task2": {
 		"name": "Titilar LED",
 		"frequency": 50,
 		"state": "onprogess",
-		"daystart": date_mmddyyyy,
-		"tstart": time_hhmmss2,
+		"creationtime": 1512306300,
+		"executiontime": epoch_task2,
 		"duration": 10 #in minutes						
 	}		
 }

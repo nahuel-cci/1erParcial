@@ -120,8 +120,7 @@
 			"daystart": 05/12/2017,
 			"tstart": 14:00:00,
 			"duration": 10 #in minutes						
-		}
-		
+		}		
 	}
 }
 			
