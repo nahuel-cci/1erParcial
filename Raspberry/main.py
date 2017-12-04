@@ -18,7 +18,7 @@ import pyrebase
 import time
 from multiprocessing import Process
 
-IN_RASPY = False
+IN_RASPY = True
 if IN_RASPY == True:
 	import RPi.GPIO as GPIO
 
@@ -37,6 +37,9 @@ if IN_RASPY == True:
 # funciones
 #########################
 def pwm():
+	import RPi.GPIO as GPIO
+	GPIO.setup(12, GPIO.OUT)
+
 	p = GPIO.PWM(12, 50)  # channel=12 frequency=50Hz
 	p.start(0)
 	while True:
@@ -123,10 +126,11 @@ while True:
 		print ("Ejecutando: ", task_id)	
 		time.sleep(duration)
 		if IN_RASPY == True:
-			if (action == "pwm"):
-				process.terminate()
-			p.stop()
-			GPIO.cleanup()	
+			if action == "blink":
+				p.stop()
+			else:
+				p = GPIO.output(12,0)
+			
 		
 		# v2 - se corre otro proceso
 		#t = Timer(ordered_dict["duracion"], timer_callback)

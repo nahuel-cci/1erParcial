@@ -65,17 +65,17 @@ epoch_task2 = int(time.mktime(time.strptime(date_time_task2, pattern)))
 scheduled_tasks_ref = db.child("scheduled_tasks")
 postData={
 	"task1": {
-		"name": "blink",		
+		"name": "on",		
 		"creationtime": 1512306000,
 		"executiontime": epoch_task1,
-		"duration": 5 #in seconds						
+		"duration": 15 #in seconds						
 	},
 	"task2": {
-		"name": "pwm",
+		"name": "blink",
 		"frequency": 50,
 		"creationtime": 1512306300,
 		"executiontime": epoch_task2,
-		"duration": 5 #in seconds						
+		"duration": 15 #in seconds						
 	}		
 }
 results = scheduled_tasks_ref.set(postData, user['idToken'])
