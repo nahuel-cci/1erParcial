@@ -62,37 +62,26 @@ date_time_task2 = '03.12.2017 11:05:02'
 epoch_task1 = int(time.mktime(time.strptime(date_time_task1, pattern)))
 epoch_task2 = int(time.mktime(time.strptime(date_time_task2, pattern)))
 
-scheduled_tasks_ref = db.child("scheduled_tasks")
+tasks_ref = db.child("tasks")
 postData={
 	"task1": {
 		"name": "on",		
 		"creationtime": 1512306000,
 		"executiontime": epoch_task1,
-		"duration": 15 #in seconds						
+		"duration": 15 #in seconds,
+		"state": scheduled
 	},
 	"task2": {
 		"name": "blink",
 		"frequency": 50,
 		"creationtime": 1512306300,
 		"executiontime": epoch_task2,
-		"duration": 15 #in seconds						
+		"duration": 15 #in seconds,
+		"state": scheduled
 	}		
 }
-results = scheduled_tasks_ref.set(postData, user['idToken'])
-
-
-tasks_ref = db.child("tasks")
-postData = {
-	"task1":{
-		"state": "scheduled"
-	},
-	"task2":{
-		"state": "scheduled"
-	},
-	"task3":{
-		"state": "completed"
-	}
-}
 results = tasks_ref.set(postData, user['idToken'])
+
+
 
 

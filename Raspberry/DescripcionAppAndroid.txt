@@ -1,0 +1,37 @@
+Aplicación 
+
+Activity 1°:
+	Logueo
+
+Activity 2°:
+	Ver como conseguir ID del usuario
+
+	Se muestran pestañas en las cuales se puede visualizar:
+	RecyclerView populado con las tareas según las siguientes características
+		a) Tareas completas
+		b) Tareas a realizar
+		c) Todas las tareas
+	
+	Un botón que permite agregar tareas
+		Se muestra los devices disponibles para dicho usuario
+
+	Cuando una tarea se empieza a ejecutar pasa a 'running'. Mostrar un cartel que indique que 
+	que está en progreso. 
+	Esperar interrupción (mirar cuando cambie dicha tarea a estado 'completed'). Async task??
+
+	Evaluar si se implementa o no:
+		Agregar un device 
+		Implica que por defecto viene la 'raspy' con un ID único, que le permite loguearse, y le pega la base de datos 				Para agregar el nuevo device hay que meter el número de serie de la 'raspy'
+		Automáticamente se asocia dicho dispositivo al usuario que ingresó el número.
+
+	Agregar pantalla 'device' que permite ver todas las tareas que tiene asociadas y resaltar las propias de alguna forma.
+		
+		
+		
+		
+
+	
+	
+	 
+	
+	
