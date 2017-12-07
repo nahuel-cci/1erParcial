@@ -1,7 +1,10 @@
 package com.example.nahuel.share;
 
+import android.graphics.Color;
+import android.graphics.ColorSpace;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.provider.CalendarContract;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +26,7 @@ public class TaskHolder extends RecyclerView.ViewHolder {
     private final TextView mNameField;
     private final View mIconState;
     private final TextView mCreationtimeField;
+    private final View mRelativeLayout;
     private String TAG = "TaskHolder";
     private ProgressBar mRunningTaskProgess;
     private MiTareaAsincrona mTareaAsc;
@@ -34,12 +38,13 @@ public class TaskHolder extends RecyclerView.ViewHolder {
         mIconState = itemView.findViewById(R.id.rectangle_view);
         mCreationtimeField = itemView.findViewById(R.id.creation_time);
         mRunningTaskProgess = itemView.findViewById(R.id.progress_running_task);
+        mRelativeLayout = itemView.findViewById(R.id.relative_layout);
     }
 
     public void bind (Task task){
         setName(task.getName());
         setCreationtime(task.getCreationtime());
-        setIconstate(task.getState());
+        setIconstate(task.getState(), task.getDuration());
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     }
@@ -55,7 +60,7 @@ public class TaskHolder extends RecyclerView.ViewHolder {
         mCreationtimeField.setText(sfd.toString().toString());
     }
 
-    private void setIconstate (String state){
+    private void setIconstate (String state, Long duration){
         switch(state){
             case "completed":
                 mIconState.setBackgroundResource(R.drawable.rectangle_completed);
@@ -69,7 +74,8 @@ public class TaskHolder extends RecyclerView.ViewHolder {
                 mIconState.setBackgroundResource(R.drawable.rectangle_running);
                 mRunningTaskProgess.setVisibility(View.VISIBLE);
                 mTareaAsc = new MiTareaAsincrona();
-                mTareaAsc.execute();
+                Log.d(TAG, "duration:"+duration+duration.toString());
+                mTareaAsc.execute(duration);
                 break;
         }
 
@@ -81,16 +87,16 @@ public class TaskHolder extends RecyclerView.ViewHolder {
         } catch(InterruptedException e) {}
     }
 
-    private class MiTareaAsincrona extends AsyncTask<Void, Integer, Boolean> {
+    private class MiTareaAsincrona extends AsyncTask<Long, Long, Boolean> {
 
 
         /*** Le paso la cantidad de tiempo que se tiene que ejcutar en segundos***/
         @Override
-        protected Boolean doInBackground(Void... duration) {
-
-            for(int i=1; i<=10; i++) {
+        protected Boolean doInBackground(Long... duration) {
+            Log.d(TAG, "ACAAA duration:"+duration+duration.toString());
+            for(int i=1; i<=duration[0]; i++) {
                 tareaLarga(); /*** Tarea que tarda un segundo en ejcutarse ***/
-                publishProgress(i*10);
+                publishProgress(i*10*10/duration[0]);
                 if(isCancelled())
                     break;
             }
@@ -98,7 +104,7 @@ public class TaskHolder extends RecyclerView.ViewHolder {
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values) {
+        protected void onProgressUpdate(Long... values) {
             int progreso = values[0].intValue();
             mRunningTaskProgess.setProgress(progreso);
         }
@@ -111,6 +117,7 @@ public class TaskHolder extends RecyclerView.ViewHolder {
 
         @Override
         protected void onPostExecute(Boolean result) {
+            mRelativeLayout.setBackgroundColor(Color.parseColor("#FFB8B8B8"));
 //            if(result)
 //                Toast.makeText(TaskHolder.this, "Tarea finalizada!",
 //                        Toast.LENGTH_SHORT).show();

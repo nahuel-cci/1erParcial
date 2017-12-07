@@ -18,16 +18,16 @@ public class Task {
     private String mName;
     private Long mCreationtime;
     private Integer mExecutiontime;
-    private Integer mDuration;
+    private Long mDuration;
 
     public Task() {}  // Needed for Firebase
 
 //    public Task(String name, Integer creationtime, Integer executiontime, Integer duration, String state) {
-    public Task(String name, Long creationtime, String state) {
+    public Task(String name, Long creationtime, String state, Long duration) {
         mName = name;
         mCreationtime = creationtime;
 //        mExecutionTime = executiontime;
-//        mDuration = duration;
+        mDuration = duration;
         mState = state;
     }
 
@@ -43,9 +43,9 @@ public class Task {
 
     public void setExecutionTime (Integer executiontime) { mExecutiontime = executiontime;}
 
-    public Integer getDuration () { return mDuration;}
+    public Long getDuration () { return mDuration;}
 
-    public void setDuration (Integer duration) { mDuration = duration;}
+    public void setDuration (Long duration) { mDuration = duration;}
 
     public String getState () { return mState;}
 

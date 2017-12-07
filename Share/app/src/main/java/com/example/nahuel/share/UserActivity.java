@@ -3,6 +3,7 @@ package com.example.nahuel.share;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.google.firebase.database.Query;
 
 public class UserActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
     public static final String TAG = "UserActivity";
+    private FloatingActionButton mAddTask;
 
     /*** Consulta a la base de datos ***/
     protected static final Query mTaskQuery = FirebaseDatabase.getInstance().
@@ -37,7 +39,17 @@ public class UserActivity extends AppCompatActivity implements FirebaseAuth.Auth
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+        mAddTask = findViewById(R.id.fab_add_task);
+
         mRecyclerView = findViewById(R.id.rvTasks);
+
+//        mAdddTask.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent newIntent = new Intent(MenuActivity.this, AddUserActivity.class);
+//                startActivity(newIntent);
+//            }
+//        });
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -116,62 +128,4 @@ public class UserActivity extends AppCompatActivity implements FirebaseAuth.Auth
 //            }
         };
     }
-
-
-
-
-//    private void tareaLarga()
-//    {
-//        try {
-//            Thread.sleep(1000);
-//        } catch(InterruptedException e) {}
-//    }
-//
-//    private class MiTareaAsincrona extends AsyncTask<Long, Integer, Boolean> {
-//
-//
-//        /*** Le paso la cantidad de tiempo que se tiene que ejcutar en segundos***/
-//        @Override
-//        protected Boolean doInBackground(Long... duration) {
-//
-//            for(int i=1; i<=duration[0]; i++) {
-//                tareaLarga(); /*** Tarea que tarda un segundo en ejcutarse ***/
-//                publishProgress(i*10);
-//                if(isCancelled())
-//                    break;
-//            }
-//            return true;
-//        }
-//
-//        @Override
-//        protected void onProgressUpdate(Integer... values) {
-//            int progreso = values[0].intValue();
-//            pbarProgreso.setProgress(progreso);
-//        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//            pbarProgreso.setMax(100);
-//            pbarProgreso.setProgress(0);
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Boolean result) {
-//            if(result)
-//                Toast.makeText(MainHilos.this, "Tarea finalizada!",
-//                        Toast.LENGTH_SHORT).show();
-//        }
-//
-//        @Override
-//        protected void onCancelled() {
-//            Toast.makeText(MainHilos.this, "Tarea cancelada!",
-//                    Toast.LENGTH_SHORT).show();
-//        }
-//
-//
-//    }
-
-
-
-
 }
