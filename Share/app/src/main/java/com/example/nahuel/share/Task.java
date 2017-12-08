@@ -17,7 +17,6 @@ public class Task {
     private String mState;
     private String mName;
     private Long mCreationtime;
-    private Integer mExecutiontime;
     private Long mDuration;
 
     public Task() {}  // Needed for Firebase
@@ -38,10 +37,6 @@ public class Task {
     public Long getCreationtime() { return mCreationtime;}
 
     public void setCreationtime(Long creationtime) { mCreationtime = creationtime;}
-
-    public Integer getExecutionTime () {return mExecutiontime;}
-
-    public void setExecutionTime (Integer executiontime) { mExecutiontime = executiontime;}
 
     public Long getDuration () { return mDuration;}
 

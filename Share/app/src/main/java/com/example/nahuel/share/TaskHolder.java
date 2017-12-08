@@ -88,11 +88,12 @@ public class TaskHolder extends RecyclerView.ViewHolder {
     }
 
     private class MiTareaAsincrona extends AsyncTask<Long, Long, Boolean> {
-
+        private int i;
 
         /*** Le paso la cantidad de tiempo que se tiene que ejcutar en segundos***/
         @Override
         protected Boolean doInBackground(Long... duration) {
+
             Log.d(TAG, "ACAAA duration:"+duration+duration.toString());
             for(int i=1; i<=duration[0]; i++) {
                 tareaLarga(); /*** Tarea que tarda un segundo en ejcutarse ***/

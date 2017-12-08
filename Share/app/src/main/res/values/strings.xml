@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Share</string>
-    <string name="emailpassword_title_text">Email and password</string>
+    <string name="emailpassword_title_text">Email y contraseña</string>
     <string name="signed_out">Sesión cerrada</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
@@ -19,8 +19,8 @@
     <string name="label_twitter_login">Firebase + Twitter Login</string>
     <string name="desc_twitter_login">Use a Twitter Login credential to authenticate with Firebase.</string>
 
-    <string name="label_emailpassword">Email/Password Authentication</string>
-    <string name="desc_emailpassword">Use an email and password to authenticate with Firebase.</string>
+    <string name="label_emailpassword">Logueo con Email/Contraseña</string>
+    <string name="desc_emailpassword">Use una cuenta de mail y contraseña para loguearte con Firebase.</string>
 
     <string name="label_phone_auth">Phone Number Authentication</string>
     <string name="desc_phone_auth">Use a phone number to authenticate with Firebase.</string>
@@ -42,17 +42,17 @@
     <string name="signed_in">Signed In</string>
     <string name="token_null">Token: null</string>
     <string name="desc_firebase_lockup">Firebase logo and name</string>
-    <string name="auth_failed">Authentication failed</string>
+    <string name="auth_failed">Verificación ha fallado</string>
     <string name="start_phone_auth">Start</string>
     <string name="verify_phone_auth">Verify</string>
     <string name="resend_phone_auth">Resend</string>
     <string name="hint_phone_number">Phone Number</string>
     <string name="hint_verification_code">Verification Code</string>
     <string name="status_code_sent">Code Sent</string>
-    <string name="status_verification_failed">Verification failed</string>
-    <string name="status_verification_succeeded">Verification succeeded</string>
-    <string name="status_sign_in_failed">Sign-in failed</string>
-    <string name="instant_validation">(instant validation)</string>
+    <string name="status_verification_failed">Verificación ha fallado</string>
+    <string name="status_verification_succeeded">Verificación exitosa</string>
+    <string name="status_sign_in_failed">Sign-in ha fallado</string>
+    <string name="instant_validation">(validación instantánea)</string>
 
     <string name="firebase_status_fmt">Firebase User: %s</string>
     <string name="firebase_user_management">Firebase User Management</string>
@@ -63,7 +63,7 @@
     <string name="facebook_status_fmt">Facebook User: %s</string>
     <string name="facebook_title_text">Facebook Login</string>
 
-    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="emailpassword_status_fmt">Usuario de mail: %1$s (Verificado: %2$b)</string>
 
 
     <string name="phone_title_text">Phone Number</string>
@@ -77,6 +77,11 @@
     <string name="id_fmt">User ID: %s</string>
     <string name="email_fmt">Email: %s</string>
     <string name="signing_in">Iniciando sesión</string>
+
+    <string-array name="name_array">
+        <item>On</item>
+        <item>Blink</item>
+    </string-array>
 </resources>
 
 

@@ -41,19 +41,21 @@ public class UserActivity extends AppCompatActivity implements FirebaseAuth.Auth
 
         mAddTask = findViewById(R.id.fab_add_task);
 
+
         mRecyclerView = findViewById(R.id.rvTasks);
 
-//        mAdddTask.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent newIntent = new Intent(MenuActivity.this, AddUserActivity.class);
-//                startActivity(newIntent);
-//            }
-//        });
+        mAddTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(UserActivity.this, AddTaskActivity.class);
+                startActivity(newIntent);
+            }
+        });
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
 
     @Override
     public void onStart() {
