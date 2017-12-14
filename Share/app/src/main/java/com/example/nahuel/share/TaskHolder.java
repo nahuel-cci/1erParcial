@@ -126,8 +126,7 @@ public class TaskHolder extends RecyclerView.ViewHolder {
 
         @Override
         protected void onCancelled() {
-//            Toast.makeText(TaskHolder.this, "Tarea cancelada!",
-//                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(itemView.getContext(), "Tarea cancelada!", Toast.LENGTH_SHORT).show();
         }
 
 
