@@ -1,18 +1,17 @@
 package com.example.nahuel.share;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -21,42 +20,79 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-public class UserActivity extends AppCompatActivity implements FirebaseAuth.AuthStateListener{
-    public static final String TAG = "UserActivity";
+//public class AllTasksFragment extends Fragment {
+public class AllTasksFragment extends Fragment implements FirebaseAuth.AuthStateListener{
+    public static final String TAG = "AllTasksFragment";
+    public static final String ARG_PAGE = "ARG_PAGE";
     private FloatingActionButton mAddTask;
+    private RecyclerView mRecyclerView;
+    private int mPage;
 
     /*** Consulta a la base de datos ***/
     protected static final Query mTaskQuery = FirebaseDatabase.getInstance().
             getReference().
             child("tasks").
             limitToLast(3);
+    /***********************************/
 
-    private RecyclerView mRecyclerView;
+    public static AllTasksFragment newInstance (int page){
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, page);
+        AllTasksFragment fragment = new AllTasksFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        mPage = getArguments().getInt(ARG_PAGE);
+    }
 
-        mAddTask = findViewById(R.id.fab_add_task);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)    {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.all_tasks_fragment, container, false);
+        return view;
+    }
 
 
-        mRecyclerView = findViewById(R.id.rvTasks);
+    // This event is triggered soon after onCreateView().
+    // onViewCreated() is only called if the view returned from onCreateView() is non-null.
+    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        mAddTask = view.findViewById(R.id.fab_add_task);
+        mRecyclerView = view.findViewById(R.id.rvTasks);
 
         mAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(UserActivity.this, AddTaskActivity.class);
+                Intent newIntent = new Intent(getActivity().getApplicationContext(), AddTaskActivity.class);
                 startActivity(newIntent);
             }
         });
 
+        /** RecyclerView **/
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        /******************/
     }
 
+    @Override
+    public void onActivityCreated(Bundle state) {
+        super.onActivityCreated(state);
+    }
 
+    @Override
+    public void onDestroy()   {
+        super.onDestroy();
+    }
+//
+//
+//
     @Override
     public void onStart() {
         super.onStart();
@@ -65,7 +101,7 @@ public class UserActivity extends AppCompatActivity implements FirebaseAuth.Auth
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         FirebaseAuth.getInstance().removeAuthStateListener(this);
     }
@@ -78,15 +114,16 @@ public class UserActivity extends AppCompatActivity implements FirebaseAuth.Auth
         if (isSignedIn()) {
             attachRecyclerViewAdapter();
         } else {
-            Toast.makeText(this, R.string.signing_in, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), R.string.signing_in, Toast.LENGTH_SHORT).show();
 //            auth.signInAnonymously().addOnCompleteListener(new SignInResultNotifier(this));
         }
     }
-
+//
+//
     private boolean isSignedIn() {
         return FirebaseAuth.getInstance().getCurrentUser() != null;
     }
-
+//
     private void attachRecyclerViewAdapter() {
         final RecyclerView.Adapter adapter = newAdapter();
 

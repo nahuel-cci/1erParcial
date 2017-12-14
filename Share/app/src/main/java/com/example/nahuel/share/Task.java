@@ -18,14 +18,15 @@ public class Task {
     private String mName;
     private Long mCreationtime;
     private Long mDuration;
+    private Long mProgress;
 
     public Task() {}  // Needed for Firebase
 
 //    public Task(String name, Integer creationtime, Integer executiontime, Integer duration, String state) {
-    public Task(String name, Long creationtime, String state, Long duration) {
+    public Task(String name, Long creationtime, String state, Long duration, Long progress) {
         mName = name;
         mCreationtime = creationtime;
-//        mExecutionTime = executiontime;
+        mProgress = progress;
         mDuration = duration;
         mState = state;
     }
@@ -45,6 +46,10 @@ public class Task {
     public String getState () { return mState;}
 
     public void setState (String state) {mState = state;}
+
+    public void setProgress (Long progress){ mProgress = progress;}
+
+    public Long getProgress () {return mProgress;}
 
 
 }

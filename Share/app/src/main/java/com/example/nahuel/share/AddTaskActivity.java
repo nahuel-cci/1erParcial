@@ -11,7 +11,6 @@ import android.widget.Spinner;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 public class AddTaskActivity extends AppCompatActivity {
     public Button butAccept;
@@ -45,14 +44,15 @@ public class AddTaskActivity extends AppCompatActivity {
         butAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddTaskActivity.this, UserActivity.class);
+                Intent intent = new Intent(AddTaskActivity.this, MainActivity.class);
 //                intent.putExtra("previousActivity", "AddTaskActivity");
 
                 Task task = new Task(
-                        spName.getSelectedItem().toString(),
+                        spName.getSelectedItem().toString().toLowerCase(),
                         (long) 1512306300,
                         "scheduled",
-                        Long.parseLong(etDuration.getText().toString())
+                        Long.parseLong(etDuration.getText().toString()),
+                        (long)0
                 );
 
                 mDatabase.child("tasks").push().setValue(task);

@@ -207,8 +207,8 @@ import com.google.firebase.auth.FirebaseUser;
 
             findViewById(R.id.verify_email_button).setEnabled(!user.isEmailVerified());
 
-            // Setear intent hacia UserActivity
-            Intent intent = new Intent(this, UserActivity.class);
+            // Setear intent hacia MainActivity
+            Intent intent = new Intent(this, MainActivity.class);
 //            intent.putExtra("FIREBASE_URL", FIREBASE_URL);
             startActivity(intent);
         } else   {

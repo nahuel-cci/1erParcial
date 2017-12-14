@@ -16,8 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserActivity" />
-        <activity android:name=".AddTaskActivity"></activity>
+        <activity android:name=".AllTasksFragment" />
+        <activity android:name=".AddTaskActivity" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

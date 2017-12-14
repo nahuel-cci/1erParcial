@@ -1,10 +1,19 @@
 package com.example.nahuel.share;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.ColorSpace;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.provider.CalendarContract;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +38,13 @@ public class TaskHolder extends RecyclerView.ViewHolder {
     private final View mRelativeLayout;
     private String TAG = "TaskHolder";
     private ProgressBar mRunningTaskProgess;
-    private MiTareaAsincrona mTareaAsc;
+
+    private CountDownTimer mCountDownTimer;
+    private NotificationCompat.Builder mBuilder;
+    NotificationManager mNotificationManager;
+
+    private int i;
+
 
 
     public TaskHolder (View itemView){
@@ -39,12 +54,14 @@ public class TaskHolder extends RecyclerView.ViewHolder {
         mCreationtimeField = itemView.findViewById(R.id.creation_time);
         mRunningTaskProgess = itemView.findViewById(R.id.progress_running_task);
         mRelativeLayout = itemView.findViewById(R.id.relative_layout);
+
+//        mInitNotification();
     }
 
     public void bind (Task task){
         setName(task.getName());
         setCreationtime(task.getCreationtime());
-        setIconstate(task.getState(), task.getDuration());
+        setIconstate(task.getState(), task.getDuration(), task.getProgress());
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     }
@@ -60,7 +77,7 @@ public class TaskHolder extends RecyclerView.ViewHolder {
         mCreationtimeField.setText(sfd.toString().toString());
     }
 
-    private void setIconstate (String state, Long duration){
+    private void setIconstate (String state, Long duration, Long progress){
         switch(state){
             case "completed":
                 mIconState.setBackgroundResource(R.drawable.rectangle_completed);
@@ -73,64 +90,64 @@ public class TaskHolder extends RecyclerView.ViewHolder {
             case "running":
                 mIconState.setBackgroundResource(R.drawable.rectangle_running);
                 mRunningTaskProgess.setVisibility(View.VISIBLE);
-                mTareaAsc = new MiTareaAsincrona();
-                Log.d(TAG, "duration:"+duration+duration.toString());
-                mTareaAsc.execute(duration);
+                mRunningTaskProgess.setProgress(progress.intValue());
+                if (progress == 100){
+                    mRelativeLayout.setBackgroundColor(Color.parseColor("#FFB8B8B8"));
+                    mNotificationManager.notify(1, mBuilder.build());
+                }
+
+                /***********************************/
+//                LocalBroadcastManager.getInstance(itemView.getContext()).
+//                        registerReceiver(mMessageReceiver,new IntentFilter("setearElProgreso"));
+                /***********************************/
+//                mTareaAsc = new MiTareaAsincrona();
+//                Log.d(TAG, "duration:"+duration+duration.toString());
+//                mTareaAsc.execute(duration);
+                /***********************************/
+//                mRunningTaskProgess.setProgress(i);
+//                mCountDownTimer=new CountDownTimer(20000,1000) {
+//
+//                    @Override
+//                    public void onTick(long millisUntilFinished) {
+//                        Log.v("Log_tag", "Tick of Progress"+ i+ millisUntilFinished);
+//                        i++;
+//                        mRunningTaskProgess.setProgress((int)i*100/(20000/1000));
+//
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        //Do what you want
+//                        i++;
+//                        mRunningTaskProgess.setProgress(100);
+//                    }
+//                };
+//                mCountDownTimer.start();
+                /***********************************/
+
+
                 break;
         }
 
     }
 
-    private void tareaLarga(){
-        try {
-            Thread.sleep(1000);
-        } catch(InterruptedException e) {}
-    }
-
-    private class MiTareaAsincrona extends AsyncTask<Long, Long, Boolean> {
-        private int i;
-
-        /*** Le paso la cantidad de tiempo que se tiene que ejcutar en segundos***/
-        @Override
-        protected Boolean doInBackground(Long... duration) {
-
-            Log.d(TAG, "ACAAA duration:"+duration+duration.toString());
-            for(int i=1; i<=duration[0]; i++) {
-                tareaLarga(); /*** Tarea que tarda un segundo en ejcutarse ***/
-                publishProgress(i*10*10/duration[0]);
-                if(isCancelled())
-                    break;
-            }
-            return true;
-        }
-
-        @Override
-        protected void onProgressUpdate(Long... values) {
-            int progreso = values[0].intValue();
-            mRunningTaskProgess.setProgress(progreso);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            mRunningTaskProgess.setMax(100);
-            mRunningTaskProgess.setProgress(0);
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            mRelativeLayout.setBackgroundColor(Color.parseColor("#FFB8B8B8"));
-//            if(result)
-//                Toast.makeText(TaskHolder.this, "Tarea finalizada!",
-//                        Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        protected void onCancelled() {
-            Toast.makeText(itemView.getContext(), "Tarea cancelada!", Toast.LENGTH_SHORT).show();
-        }
 
 
-    }
+
+//    private void mInitNotification(){
+//        mBuilder = new NotificationCompat.Builder(itemView.getContext().getApplicationContext())
+//                .setSmallIcon(android.R.drawable.stat_sys_warning)
+//                .setLargeIcon((((BitmapDrawable)itemView.getContext().getApplicationContext().getResources()
+//                        .getDrawable(R.drawable.common_full_open_on_phone)).getBitmap()))
+//                .setContentTitle("Tarea completada")
+//                .setContentText("Toca aquí para visualizarla")
+//                .setContentInfo("")
+//                .setTicker("Alerta!");
+//
+//        Intent notIntent = new Intent(itemView.getContext(), MainActivity.class);
+//        PendingIntent contIntent = PendingIntent.getActivity(itemView.getContext(), 0, notIntent, 0);
+//        mBuilder.setContentIntent(contIntent);
+//    }
 
 
 }
