@@ -1,9 +1,9 @@
 package com.example.nahuel.a1erparcial;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+        import android.content.Context;
+        import android.support.v4.app.Fragment;
+        import android.support.v4.app.FragmentManager;
+        import android.support.v4.app.FragmentPagerAdapter;
 
 /**
  * Created by nahuel on 07/10/2017.
