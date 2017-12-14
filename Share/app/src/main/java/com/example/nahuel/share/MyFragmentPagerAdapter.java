@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-    private String tabTitles[] = new String[] {"Todas las tareas"};
+    private String tabTitles[] = new String[] {"Todas las tareas", "Perfil"};
     final int PAGE_COUNT = tabTitles.length;
     private Context context;
 
@@ -35,8 +35,8 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 return AllTasksFragment.newInstance(position + 1);
-//            case 1:
-//                return SexoFragment.newInstance(position + 1);
+            case 1:
+                return ProfileFragment.newInstance(position + 1);
             default:
                 return null;
         }

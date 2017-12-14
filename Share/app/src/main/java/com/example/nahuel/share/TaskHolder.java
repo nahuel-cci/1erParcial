@@ -55,7 +55,7 @@ public class TaskHolder extends RecyclerView.ViewHolder {
         mRunningTaskProgess = itemView.findViewById(R.id.progress_running_task);
         mRelativeLayout = itemView.findViewById(R.id.relative_layout);
 
-//        mInitNotification();
+        mInitNotification();
     }
 
     public void bind (Task task){
@@ -134,20 +134,20 @@ public class TaskHolder extends RecyclerView.ViewHolder {
 
 
 
-//    private void mInitNotification(){
-//        mBuilder = new NotificationCompat.Builder(itemView.getContext().getApplicationContext())
-//                .setSmallIcon(android.R.drawable.stat_sys_warning)
-//                .setLargeIcon((((BitmapDrawable)itemView.getContext().getApplicationContext().getResources()
-//                        .getDrawable(R.drawable.common_full_open_on_phone)).getBitmap()))
-//                .setContentTitle("Tarea completada")
-//                .setContentText("Toca aquí para visualizarla")
-//                .setContentInfo("")
-//                .setTicker("Alerta!");
-//
-//        Intent notIntent = new Intent(itemView.getContext(), MainActivity.class);
-//        PendingIntent contIntent = PendingIntent.getActivity(itemView.getContext(), 0, notIntent, 0);
-//        mBuilder.setContentIntent(contIntent);
-//    }
+    private void mInitNotification(){
+        mBuilder = new NotificationCompat.Builder(itemView.getContext().getApplicationContext())
+                .setSmallIcon(android.R.drawable.stat_sys_warning)
+                .setLargeIcon((((BitmapDrawable)itemView.getContext().getApplicationContext().getResources()
+                        .getDrawable(R.drawable.common_full_open_on_phone)).getBitmap()))
+                .setContentTitle("Tarea completada")
+                .setContentText("Toca aquí para visualizarla")
+                .setContentInfo("")
+                .setTicker("Alerta!");
+
+        Intent notIntent = new Intent(itemView.getContext(), MainActivity.class);
+        PendingIntent contIntent = PendingIntent.getActivity(itemView.getContext(), 0, notIntent, 0);
+        mBuilder.setContentIntent(contIntent);
+    }
 
 
 }

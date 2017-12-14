@@ -3,6 +3,7 @@ package com.example.nahuel.share;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class ProfileFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
@@ -23,6 +27,7 @@ public class ProfileFragment extends Fragment {
     private ProgressBar spinner;
     private MiTareaAsincrona mTareaAsc;
 
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     public static ProfileFragment newInstance (int page){
         Bundle args = new Bundle();
@@ -53,8 +58,12 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mId = (TextView) view.findViewById(R.id.tvId);
-        spinner=(ProgressBar)view.findViewById(R.id.progressBar);
+        spinner=(ProgressBar)view.findViewById(R.id.progress_running_task);
         spinner.setVisibility(View.VISIBLE);
+        Log.d("ProfileFragment:", currentUser.getEmail());
+//        mId.setText(currentUser.getEmail());
+        mTareaAsc = new MiTareaAsincrona();
+        mTareaAsc.execute();
     }
 
 
@@ -67,17 +76,16 @@ public class ProfileFragment extends Fragment {
         } catch(InterruptedException e) {}
     }
 
-    private class MiTareaAsincrona extends AsyncTask<Long, Long, Boolean> {
+    private class MiTareaAsincrona extends AsyncTask<Void, Integer, Boolean> {
         private int i;
 
         /*** Le paso la cantidad de tiempo que se tiene que ejcutar en segundos***/
         @Override
-        protected Boolean doInBackground(Long... duration) {
+        protected Boolean doInBackground(Void... duration) {
 
-            Log.d(TAG, "ACAAA duration:"+duration+duration.toString());
-            for(int i=1; i<=duration[0]; i++) {
+            for(int i=1; i<=10; i++) {
                 tareaLarga(); /*** Tarea que tarda un segundo en ejcutarse ***/
-                publishProgress(i*10*10/duration[0]);
+                publishProgress(i*10);
                 if(isCancelled())
                     break;
             }
@@ -85,7 +93,7 @@ public class ProfileFragment extends Fragment {
         }
 
         @Override
-        protected void onProgressUpdate(Long... values) {
+        protected void onProgressUpdate(Integer... values) {
             int progreso = values[0].intValue();
             spinner.setProgress(progreso);
         }
@@ -102,6 +110,8 @@ public class ProfileFragment extends Fragment {
 //            if(result)
 //                Toast.makeText(TaskHolder.this, "Tarea finalizada!",
 //                        Toast.LENGTH_SHORT).show();
+            mId.setText(currentUser.getEmail());
+            spinner.setVisibility(View.INVISIBLE);
         }
 
         @Override
