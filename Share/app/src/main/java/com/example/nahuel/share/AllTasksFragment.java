@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+
+import org.greenrobot.eventbus.EventBus;
 
 //public class AllTasksFragment extends Fragment {
 public class AllTasksFragment extends Fragment implements FirebaseAuth.AuthStateListener{
@@ -32,7 +35,7 @@ public class AllTasksFragment extends Fragment implements FirebaseAuth.AuthState
     protected static final Query mTaskQuery = FirebaseDatabase.getInstance().
             getReference().
             child("tasks").
-            limitToLast(3);
+            limitToLast(6);
     /***********************************/
 
     public static AllTasksFragment newInstance (int page){
@@ -75,7 +78,7 @@ public class AllTasksFragment extends Fragment implements FirebaseAuth.AuthState
             }
         });
 
-        /** RecyclerView **/
+        /** RecyclerView - LayOutManager (de los item-fila)**/
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         /******************/
@@ -148,13 +151,18 @@ public class AllTasksFragment extends Fragment implements FirebaseAuth.AuthState
                         .build();
 
         return new FirebaseRecyclerAdapter<Task, TaskHolder>(options) {
-            /*** Lo inflo ***/
+            /*** Lo inflo y creo el TaskHolder***/
             @Override
             public TaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return new TaskHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.task, parent, false));
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.task, parent, false);
+
+                return new TaskHolder(view);
             }
 
+            /*** Se populan los datos a través del holder.
+             * Permite setear los atributos de los Views según los datos.
+             * Lo hace solo FirebaseRecyclerAdapter***/
             @Override
             protected void onBindViewHolder(TaskHolder holder, int position, Task model) {
                 holder.bind(model);
@@ -163,7 +171,11 @@ public class AllTasksFragment extends Fragment implements FirebaseAuth.AuthState
 //            @Override
 //            public void onDataChanged() {
 //                // If there are no chat messages, show a view that invites the user to add a message.
-//                mEmptyListMessage.setVisibility(getItemCount() == 0 ? View.VISIBLE : View.GONE);
+////                mEmptyListMessage.setVisibility(getItemCount() == 0 ? View.VISIBLE : View.GONE);
+////                if (getItem(getId()).getProgress() == 100){
+//////                    EventBus.getDefault().postSticky(new MessageEvent());
+////                    Log.d("hola", "signInWithEmail:success");
+////                }
 //            }
         };
     }

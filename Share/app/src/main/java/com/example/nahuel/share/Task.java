@@ -1,5 +1,10 @@
 package com.example.nahuel.share;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by nahuel on 06/12/2017.
  */
@@ -50,6 +55,20 @@ public class Task {
     public void setProgress (Long progress){ mProgress = progress;}
 
     public Long getProgress () {return mProgress;}
+
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put("name", mName);
+        result.put("creationtime", mCreationtime);
+        result.put("progress", mProgress);
+        result.put("duration", mDuration);
+        result.put("state", mState);
+
+        return result;
+    }
 
 
 }

@@ -1,12 +1,17 @@
 package com.example.nahuel.share;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +31,9 @@ public class ProfileFragment extends Fragment {
     private TextView mId;
     private ProgressBar spinner;
     private MiTareaAsincrona mTareaAsc;
+
+    private NotificationCompat.Builder mBuilder;
+    private static final int NOTIF_ALERTA_ID = 1;
 
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -112,6 +120,36 @@ public class ProfileFragment extends Fragment {
 //                        Toast.LENGTH_SHORT).show();
             mId.setText(currentUser.getEmail());
             spinner.setVisibility(View.INVISIBLE);
+
+
+
+            /** Notificacion **/
+            mBuilder = new NotificationCompat.Builder(getActivity())
+                    .setSmallIcon(android.R.drawable.btn_star_big_on)
+                    .setLargeIcon((((BitmapDrawable)getResources()
+                            .getDrawable(R.drawable.common_full_open_on_phone)).getBitmap()))
+                    .setContentTitle("AsyncTask completada")
+                    .setContentText("Toca aquí para visualizarla")
+                    .setContentInfo("")
+                    .setTicker("Alerta!");
+
+            Intent notIntent = new Intent(getActivity(), MainActivity.class);
+            PendingIntent contIntent = PendingIntent.getActivity(getActivity(), 0, notIntent, 0);
+            mBuilder.setContentIntent(contIntent);
+
+            NotificationManager mNotificationManager =
+                    (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+            mNotificationManager.notify(NOTIF_ALERTA_ID, mBuilder.build());
+            /******************/
+
+
+
+
+
+
+
         }
 
         @Override

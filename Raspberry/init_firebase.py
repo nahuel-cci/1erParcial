@@ -83,7 +83,7 @@ db.remove()
 # }
 # print (postData)
 
-NUMERO_DE_TAREAS = 1
+NUMERO_DE_TAREAS = 3
 # se crean NUMERO_DE_TAREAS en la base de Datos
 # todas con su ejecucion pendiente, es decir, scheduled
 durationtimes = []
@@ -93,13 +93,14 @@ creationtimes = []
 # nodos redundantes
 # se postea lo mismo en ambos nodos
 postData={}
+names=['on', 'blink', 'pwm']
 for i in range(NUMERO_DE_TAREAS):
     durationtimes.append( random.randint(10,20) )
     creationtimes.append( int(time.time())+10+i )
 
     postData['task'+str(i)] = {}
     postData['task'+str(i)] = {\
-        'name': 'on',
+        'name': names[i],
         'creationtime': creationtimes[i],
         'duration': durationtimes[i],
         'progress': 0,
